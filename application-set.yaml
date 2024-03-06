@@ -6,7 +6,7 @@ spec:
   generators:
   - git:
       # git repository to get the variables from
-      repoURL: https://github.com/firestartr-test/state-deploy.git
+      repoURL: https://github.com/firestartr-test/application-sets.git
       # branch used to get the variables from 
       revision: main
       directories:
@@ -20,7 +20,7 @@ spec:
       project: default
       source:
         # source repo, in this example both repositories are the same
-        repoURL: https://github.com/firestartr-test/state-deploy.git
+        repoURL: https://github.com/firestartr-test/application-sets.git
         targetRevision: main
         # path to read manifests from, here it's the full path not only the name of the directory
         path: '{{path}}'

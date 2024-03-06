@@ -6,7 +6,7 @@ metadata:
   name: example2
 spec:
   selector:
-    app.kubernetes.io/name: example1
+    app.kubernetes.io/name: example2
   ports:
     - protocol: TCP
       port: 80

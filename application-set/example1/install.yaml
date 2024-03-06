@@ -1,0 +1,36 @@
+---
+# Source: foo/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: example1
+spec:
+  selector:
+    app.kubernetes.io/name: example1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+# Source: foo/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example1
+  labels:
+    app.kubernetes.io/name: example1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80

@@ -1,2 +1,2 @@
-ingressClassName: test
+ingressClassName: alb
 namespace: test

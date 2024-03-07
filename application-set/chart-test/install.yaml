@@ -1,0 +1,59 @@
+---
+# Source: example/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: chart-test
+  namespace: test
+spec:
+  selector:
+    app.kubernetes.io/name: chart-test
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+# Source: example/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chart-test
+  namespace: test
+  labels:
+    app.kubernetes.io/name: chart-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: chart-test
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: chart-test
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+---
+# Source: example/templates/ingress.yaml
+piVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chart-test
+  namespace: test
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: test
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: chart-test
+            port:
+              number: 80
